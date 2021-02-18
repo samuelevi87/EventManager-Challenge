@@ -30,6 +30,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		http.cors().and().csrf().disable();//liberando o CORS, desabilitando a proteção de ataque CSRF (ataque baseado em sessão), a aplicação será REST, por isso não sofre esse tipo de ataque.
 		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);//Não armazena o estado.
 		http.authorizeRequests().anyRequest().permitAll();//Permitindo o acesso à todas requisições.
+		http.headers().frameOptions().disable();
+		http.headers().frameOptions().sameOrigin(); //Permitindo a execução x-frame para a exibição do h2-console (https://stackoverflow.com/questions/53395200/h2-console-is-not-showing-in-browser)
 	}
 
 	@Bean
