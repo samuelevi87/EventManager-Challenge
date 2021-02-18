@@ -1,4 +1,4 @@
-package br.com.sl3v1.challengeselection.entities;
+package br.com.sl3v1.challengeselection.enums;
 
 public enum RoomStatus {
 

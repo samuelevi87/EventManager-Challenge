@@ -1,4 +1,4 @@
-package br.com.sl3v1.challengeselection.entities;
+package br.com.sl3v1.challengeselection.room;
 
 import java.io.Serializable;
 import java.util.HashSet;
@@ -13,6 +13,8 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import br.com.sl3v1.challengeselection.enums.RoomStatus;
+import br.com.sl3v1.challengeselection.enums.Stage;
 import br.com.sl3v1.challengeselection.people.People;
 import lombok.Data;
 
