@@ -5,8 +5,9 @@ import java.util.List;
 import javax.websocket.server.PathParam;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
-@RequestMapping(path = "/api/v1/people", produces = {MediaType.APPLICATION_JSON_VALUE})
+@RequestMapping(path = "/api/v1/people", produces = {"application/JSON"})
 public class PeopleController {
 
 
@@ -29,21 +30,20 @@ public class PeopleController {
 
     @GetMapping
     @ResponseBody
-    public List<People> findAll() {
-        return peopleService.findAll();
+    ResponseEntity<List<People>> findAll() {
+        return ResponseEntity.ok(peopleService.findAll());
     }
 
-    @SuppressWarnings("unchecked")
-	@GetMapping("/{id}")
+    @GetMapping("/{id}")
     @ResponseBody
-    public List<People> findById(@PathParam("id") Long id) {
-        return (List<People>) peopleService.findById(id);
+    ResponseEntity<People> findById(@PathParam("id") Long id) {
+    	return ResponseEntity.ok(peopleService.findById(id));
     }
 
     @PostMapping
     @ResponseBody
-    public People save(@RequestBody People people) {
-        return peopleService.save(people);
+    public ResponseEntity<People> save(@RequestBody People people) {
+        return ResponseEntity.ok(peopleService.save(people));
     }
 
     @PutMapping("/{id}")

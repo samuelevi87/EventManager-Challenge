@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -27,9 +28,17 @@ public class Room implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY) //Instruindo o JPA a mapear o ID como chave primária auto incrementável no banco.
 	private Long id;
+	
+	@Column(name = "name")
 	private String name;
+	
+	@Column(name = "capacity")
 	private Integer capacity;
+	
+	@Column(name = "status")
 	private RoomStatus status;
+	
+	@Column(name = "stage")
 	private Stage stage;
 	
 	@ManyToMany
