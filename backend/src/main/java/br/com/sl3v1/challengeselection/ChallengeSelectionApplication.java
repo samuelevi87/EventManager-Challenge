@@ -1,9 +1,13 @@
 package br.com.sl3v1.challengeselection;
 
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.web.bind.annotation.RestController;
 
 @SpringBootApplication
+@EnableAutoConfiguration
+@RestController
 public class ChallengeSelectionApplication {
 
 	public static void main(String[] args) {

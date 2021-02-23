@@ -34,5 +34,9 @@ public class RoomService {
     public void delete(Long id) {
         repository.deleteById(id);
     }
+    
+//    public Room findMinorCapacity() {
+//    	return repository.findById(null)
+//    }
 }	
 

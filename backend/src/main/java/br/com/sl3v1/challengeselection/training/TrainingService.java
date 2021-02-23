@@ -13,6 +13,7 @@ public class TrainingService {
 	@Autowired
 	public TrainingService (TrainingRepository repository) {
 		this.repository = repository;
+
 	}
 	
 	  public List<Training> findAll() {
