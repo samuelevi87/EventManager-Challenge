@@ -1,59 +1,67 @@
 package br.com.sl3v1.challengeselection.room;
 
-import java.util.List;
-
+import br.com.sl3v1.challengeselection.people.People;
+import br.com.sl3v1.challengeselection.people.PeopleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Controller
-@RequestMapping(path = "/api/v1/room", produces = { MediaType.APPLICATION_JSON_VALUE })
+@RequestMapping(path = "/api/v1/room", produces = {MediaType.APPLICATION_JSON_VALUE})
 public class RoomController {
 
-	private RoomService roomService;
+    private RoomService roomService;
+    private PeopleService peopleService;
 
-	@Autowired
-	public RoomController(RoomService roomService) {
-		this.roomService = roomService;
-	}
+    @Autowired
+    public RoomController(RoomService roomService) {
+        this.roomService = roomService;
+    }
 
-	@GetMapping
-	@ResponseBody
-	public List<Room> findAll() {
-		return roomService.findAll();
-	}
+    @GetMapping
+    @ResponseBody
+    public ResponseEntity<List<Room>> findAll() {
+        return ResponseEntity.ok(roomService.findAll());
+    }
 
-	@SuppressWarnings("unchecked")
-	@GetMapping("/{id}")
-	@ResponseBody
-	public List<Room> findById(@PathVariable("id") Long id) {
-		return (List<Room>) roomService.findById(id);
-	}
+    @GetMapping("/f/")
+    @ResponseBody
+    public ResponseEntity<Room> getMinLotation() {
+        return ResponseEntity.ok(roomService.getMinLotation());
+    }
 
-	@PostMapping
-	public ResponseEntity<Room> save(@RequestBody Room room) {
-		return ResponseEntity.ok(roomService.save(room));
-	}
+    @GetMapping("/{id}")
+    @ResponseBody
+    public ResponseEntity<Room> findById(@PathVariable("id") Long id) {
+        return ResponseEntity.ok(roomService.findById(id));
+    }
 
-	@PutMapping("/")
-	public ResponseEntity<Room> update(@RequestBody Room room) {
-		Room roomSaved = roomService.save(room);
-		return new ResponseEntity<Room>(roomSaved, HttpStatus.OK);
-	}
+    @GetMapping("/list/{room_id}")
+    public ResponseEntity<List<People>> findByRoomId(@PathVariable(value = "room_id") Long roomId) {
+        return ResponseEntity.ok(peopleService.findByRoomId(roomId));
+    }
 
-	@DeleteMapping("/{id}")
-	public void update(@PathVariable("id") Long id) {
-		roomService.delete(id);
-	}
+    @PostMapping
+    public ResponseEntity<Room> save(@RequestBody Room room) {
+        return ResponseEntity.ok(roomService.save(room));
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Room> update(@PathVariable("id") Long id,
+                                 @RequestBody Room room) throws Exception {
+        roomService.update(room, id);
+        return new ResponseEntity<>(HttpStatus.ACCEPTED);
+    }
+
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable("id") Long id) {
+        roomService.delete(id);
+    }
+
 
 }
