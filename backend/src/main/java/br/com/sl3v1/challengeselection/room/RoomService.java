@@ -25,6 +25,7 @@ public class RoomService {
     }
 
     public Room save(Room room) {
+        room.setLotation(0);
         return roomRepository.save(room);
     }
 

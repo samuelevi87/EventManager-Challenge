@@ -27,9 +27,9 @@ public class People implements Serializable {
     @Column(name = "room_id" )
     private Long roomId;
 
-    @OneToOne
-    @JoinColumn(name = "room_id", insertable = false, updatable = false)
-    private Room room;
+//    @OneToOne
+//    @JoinColumn(name = "room_id", insertable = false, updatable = false)
+//    private Room room;
 
     @Column(name = "coffee_id" )
     private Long coffeeId;
