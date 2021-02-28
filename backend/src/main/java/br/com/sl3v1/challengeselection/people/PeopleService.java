@@ -14,31 +14,31 @@ import java.util.Optional;
 @Service
 public class PeopleService {
 
-    private PeopleRepository repository;
+    private PeopleRepository peopleRepository;
     private RoomService roomService;
     private CoffeeService coffeeService;
 
     @Autowired
-    public PeopleService(PeopleRepository repository, RoomService roomService, CoffeeService coffeeService) {
-        this.repository = repository;
+    public PeopleService(PeopleRepository peopleRepository, RoomService roomService, CoffeeService coffeeService) {
+        this.peopleRepository = peopleRepository;
         this.roomService = roomService;
         this.coffeeService = coffeeService;
     }
 
     public List<People> findAll() {
-        return (List<People>) repository.findAll();
+        return (List<People>) peopleRepository.findAll();
     }
 
     public People findById(Long id) {
-        return repository.findById(id).orElse(null);
+        return peopleRepository.findById(id).orElse(null);
     }
 
     public List<People> findByRoomId(Long roomId) {
-        return repository.findByRoomId(roomId);
+        return peopleRepository.findByRoomId(roomId);
     }
 
     public List<People> findByCoffeeId(Long coffeeId) {
-        return repository.findByCoffeeId(coffeeId);
+        return peopleRepository.findByCoffeeId(coffeeId);
     }
 
     public People save(People people) throws Exception {
@@ -57,7 +57,7 @@ public class PeopleService {
 
         if (roomSmallerLotation.getLotation() < roomSmallerLotation.getCapacity()) {
             people.setRoomId(roomSmallerLotation.getId()); //Se a capacidade da sala for menor que a lotação, há espaço para outra pessoa.
-            people.setCoffeeId(roomSmallerLotation.getId());
+            roomSmallerLotation.setLotation(roomSmallerLotation.getLotation()+1); //Incrementando a Lotação
         } else {
             throw new Exception("Todas as salas estão lotadas!");
         }
@@ -67,22 +67,23 @@ public class PeopleService {
                 .get(); //Retornando o espaço de cafe com menor lotação
         if (coffeeSmallerLotation.getLotation() < coffeeSmallerLotation.getCapacity()) {
             people.setCoffeeId(coffeeSmallerLotation.getId()); //Se a capacidade da sala for menor que a lotação, há espaço para outra pessoa.
+            coffeeSmallerLotation.setLotation(coffeeSmallerLotation.getLotation()+1);
         } else {
             throw new Exception("Todas as salas de café estão lotadas!");
         }
 
 
-        return this.repository.save(people);
+        return this.peopleRepository.save(people);
     }
 
     public People update(People people, Long id) throws Exception {
-        Optional<People> peopleOptional = repository.findById(id);
+        Optional<People> peopleOptional = peopleRepository.findById(id);
 
         if (peopleOptional.isPresent()) {
             People peopleDb = peopleOptional.get();
             peopleDb.setName(people.getName());
             peopleDb.setSurname(people.getSurname());
-            repository.save(peopleDb);
+            peopleRepository.save(peopleDb);
         } else {
             throw new Exception("Pessoa com o id informado não encontrado: " + id);
         }
@@ -90,7 +91,7 @@ public class PeopleService {
     }
 
     public void delete(Long id) {
-        this.repository.deleteById(id);
+        this.peopleRepository.deleteById(id);
     }
 
 }	

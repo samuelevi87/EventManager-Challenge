@@ -25,7 +25,7 @@ public class PeopleController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<People> findById(@PathParam(value = "id") Long id) {
+    public ResponseEntity<People> findById(@PathVariable(value = "id") Long id) {
         return ResponseEntity.ok(peopleService.findById(id));
     }
 
@@ -35,13 +35,13 @@ public class PeopleController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<People> update(@RequestBody People people, @PathParam(value = "id") Long id) throws Exception {
+    public ResponseEntity<People> update(@RequestBody People people, @PathVariable(value = "id") Long id) throws Exception {
         People peopleSaved = peopleService.update(people, id);
         return new ResponseEntity<>(peopleSaved, HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
-    public void delete(@PathParam("id") Long id) {
+    public void delete(@PathVariable("id") Long id) {
         peopleService.delete(id);
     }
 }

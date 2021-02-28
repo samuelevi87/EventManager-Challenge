@@ -39,7 +39,7 @@ public class RoomService {
             roomDb.setCapacity(room.getCapacity());
             roomRepository.save(roomDb);
         }else{
-            throw new Exception("Sala com o id informado não encontrado: " + id);
+            throw new Exception("Sala com o id: " + id + " informado não encontrado!");
         }
     }
 

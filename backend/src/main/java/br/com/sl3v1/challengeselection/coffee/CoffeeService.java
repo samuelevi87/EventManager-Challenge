@@ -24,6 +24,7 @@ public class CoffeeService {
     }
 
     public Coffee save(Coffee coffee) {
+        coffee.setLotation(0);
         return coffeeRepository.save(coffee);
     }
 

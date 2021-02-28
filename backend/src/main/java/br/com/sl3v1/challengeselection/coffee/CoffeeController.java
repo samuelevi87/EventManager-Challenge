@@ -2,7 +2,6 @@ package br.com.sl3v1.challengeselection.coffee;
 
 import br.com.sl3v1.challengeselection.people.People;
 import br.com.sl3v1.challengeselection.people.PeopleService;
-import br.com.sl3v1.challengeselection.room.Room;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -20,8 +19,9 @@ public class CoffeeController {
     private PeopleService peopleService;
 
     @Autowired
-    public CoffeeController(CoffeeService coffeeService) {
+    public CoffeeController(CoffeeService coffeeService, PeopleService peopleService) {
         this.coffeeService = coffeeService;
+        this.peopleService = peopleService;
     }
 
     @GetMapping

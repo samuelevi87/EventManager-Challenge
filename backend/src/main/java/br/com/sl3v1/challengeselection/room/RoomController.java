@@ -9,7 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import javax.websocket.server.PathParam;
 import java.util.List;
 
 @Controller
@@ -39,12 +38,12 @@ public class RoomController {
 
     @GetMapping("/{id}")
     @ResponseBody
-    public ResponseEntity<Room> findById(@PathParam("id") Long id) {
+    public ResponseEntity<Room> findById(@PathVariable("id") Long id) {
         return ResponseEntity.ok(roomService.findById(id));
     }
 
     @GetMapping("/list/{room_id}")
-    public ResponseEntity<List<People>> findByRoomId(@PathParam(value = "room_id") Long roomId) {
+    public ResponseEntity<List<People>> findByRoomId(@PathVariable(value = "room_id") Long roomId) {
         return ResponseEntity.ok(peopleService.findByRoomId(roomId));
     }
 
@@ -54,14 +53,14 @@ public class RoomController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Room> update(@PathParam("id") Long id,
+    public ResponseEntity<Room> update(@PathVariable("id") Long id,
                                  @RequestBody Room room) throws Exception {
         roomService.update(room, id);
         return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity delete(@PathParam("id") Long id) {
+    public ResponseEntity delete(@PathVariable("id") Long id) {
         roomService.delete(id);
         return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }

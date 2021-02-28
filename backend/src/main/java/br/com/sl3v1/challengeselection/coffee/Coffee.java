@@ -1,9 +1,11 @@
 package br.com.sl3v1.challengeselection.coffee;
 
+import br.com.sl3v1.challengeselection.people.People;
 import lombok.Data;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @Table(name = "tb_coffee")
@@ -25,6 +27,8 @@ public class Coffee implements Serializable {
     @Column(name = "lotation")
     private Integer lotation;
 
+    @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
+    private List<People> peopleCoffeeList;
 
 
 
